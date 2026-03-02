@@ -130,9 +130,11 @@ tasks:
         task: update-os-libs
 
   create-extension:
+    env:
+      _DAGGER_ENGINE_SYSTEMENV_GOPROXY: direct 
     desc: Scaffold a new extension directory. Usage - task create-extension NAME=myextension
     cmds:
-      - dagger call -sm ./dagger/maintenance/ create --name {{.NAME}} export --path ./{{.NAME}}
+      - dagger call -m ./dagger/maintenance/ create --name {{.NAME}} export --path ./{{.NAME}}
     preconditions:
       - sh: test -n "{{.NAME}}"
         msg: 'NAME variable is required. Usage - task create-extension NAME=myextension'
